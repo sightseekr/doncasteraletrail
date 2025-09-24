@@ -433,6 +433,17 @@ if (!isMobile()) {
       }
     });
   });
+  // --- Listen for geolocation from parent Wix page ---
+window.addEventListener("message", (event) => {
+  // Optional: restrict messages to your Wix site
+  // if (event.origin !== "https://your-wix-site.com") return;
+
+  const { type, coords } = event.data;
+  if (type === "setUserLocation" && coords) {
+    const [lng, lat] = coords;
+    map.flyTo({ center: [lng, lat], zoom: 15 }); // Move map to user's location
+  }
+});
 </script>
 </body>
 </html> 
